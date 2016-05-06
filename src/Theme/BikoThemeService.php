@@ -22,7 +22,7 @@ class BikoThemeService {
     }
 
     /**
-     * Devuelve el nombre del theme por defecto (el de frontend)
+     * Activa un theme
      *
      * @param string $themeName
      *  Nombre del theme
