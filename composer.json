@@ -20,7 +20,7 @@
   "minimum-stability": "dev",
   "extra": {
         "branch-alias": {
-            "master": "8.1.x-dev"
+            "dev-master": "8.1.x-dev"
         }
   }
 }
