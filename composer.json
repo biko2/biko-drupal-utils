@@ -1,0 +1,21 @@
+{
+  "name": "drupal/biko_utils",
+  "description": "Biko utils.",
+  "type": "drupal-module",
+  "homepage": "http://www.biko2.com",
+  "authors": [
+    {
+      "name": "Alberto Silva",
+      "email": "alberto.silva@biko2.com",
+      "homepage": "http://www.biko2.com/",
+      "role": "Author"
+    },
+    {
+      "name": "David Gallego",
+      "email": "david.gallego@biko2.com",
+      "homepage": "http://www.biko2.com/",
+      "role": "Author"
+    }
+  ],
+  "minimum-stability": "dev"
+}

@@ -1,0 +1,7 @@
+name: Biko Utils
+description: Biko utilities
+package: Biko
+
+type: module
+core: 8.x
+version: 1.0
