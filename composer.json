@@ -1,6 +1,6 @@
 {
   "name": "drupal/biko_utils",
-  "description": "Biko utils.",
+  "description": "Biko Drupal utils",
   "type": "drupal-module",
   "homepage": "http://www.biko2.com",
   "authors": [
@@ -16,5 +16,11 @@
       "homepage": "http://www.biko2.com/",
       "role": "Author"
     }
-  ]
+  ],
+  "minimum-stability": "dev",
+  "extra": {
+        "branch-alias": {
+            "master": "1.0.0-dev"
+        }
+  }
 }
