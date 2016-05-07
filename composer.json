@@ -3,5 +3,10 @@
   "description": "Biko Drupal utils",
   "type": "drupal-module",
   "homepage": "http://www.biko2.com",
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+   "extra": {
+        "branch-alias": {
+            "master": "8.1.x-dev"
+        }
+    }
 }
