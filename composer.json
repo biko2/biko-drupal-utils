@@ -1,5 +1,5 @@
 {
-  "name": "drupal/biko_utils",
+  "name": "drupal/biko-drupal-utils",
   "description": "Biko Drupal utils",
   "type": "drupal-module",
   "homepage": "http://www.biko2.com",
@@ -17,10 +17,5 @@
       "role": "Author"
     }
   ],
-  "minimum-stability": "dev",
-  "extra": {
-        "branch-alias": {
-            "dev-master": "8.1.x-dev"
-        }
-  }
+  "minimum-stability": "dev"
 }
