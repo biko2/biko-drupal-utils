@@ -3,3 +3,14 @@ services:
     class: Drupal\biko_drupal_utils\Theme\BikoThemeService
   biko.entity:
     class: Drupal\biko_drupal_utils\Entity\BikoEntityService
+  biko.twig_extension:
+    class: Drupal\biko_drupal_utils\Template\BikoTwigExtension
+    arguments: ['@renderer']
+    # Los 'tags' se usan para indicar que este servicio debe usarse de manera
+    # especial o que pertenece a una categoria (grupo) de servicios
+    # https://www.drupal.org/node/2239393
+    # http://symfony.com/doc/current/reference/dic_tags.html#twig-extension
+    # En nuestro caso es imprescindible darle una prioridad mayor de 100
+    # para permitir que Drupal cargue antes su propia extensión de Twig
+    tags:
+        - { name: twig.extension, priority: 105 }
