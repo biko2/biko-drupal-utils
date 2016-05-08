@@ -10,7 +10,7 @@ namespace Drupal\biko_drupal_utils\Entity;
 class BikoEntityService {
 
     /**
-     * Renderiza un node
+     * Obtiene el renderizado de un node
      *
      * @param \Drupal\node\Entity\Node $node
      * @param string $viewMode
@@ -21,7 +21,7 @@ class BikoEntityService {
     }
 
     /**
-     * Renderiza un block
+     * Obtiene el renderizado de un block
      *
      * @param \Drupal\block\Entity\Block $block
      * @return string
