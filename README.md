@@ -9,7 +9,7 @@ Utilidades comunes para Drupal 8
 
 Añadir el repositorio privado de BitBucket a composer.json
 
-```javascript
+```json
     "repositories": [
         {
             "type": "vcs",
@@ -19,7 +19,7 @@ Añadir el repositorio privado de BitBucket a composer.json
 ```
 
 Añadir el paquete a composer.json, haciendo que coincida con la versión de Drupal que usemos (8.1.* -> 8.1, 8.2.* -> 8.2, etc)
-```javascript
+```json
     "require": {
         ...
         "biko2/biko_drupal_utils": "8.1"
@@ -31,5 +31,4 @@ Ejecutar composer con *--prefer-source* para que haga clone de este repositorio 
 
 ```
 composer install biko2/biko_drupal_utils --prefer-source
-
 ```
