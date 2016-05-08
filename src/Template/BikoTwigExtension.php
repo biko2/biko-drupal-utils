@@ -68,7 +68,7 @@ class BikoTwigExtension extends TwigExtension {
    */
   public function getFunctions() {
     return array(
-      new \Twig_SimpleFunction('link', array($this, 'getLink')),
+      new \Twig_SimpleFunction('link_html', array($this, 'getLink')),
     );
   }
 
@@ -132,7 +132,7 @@ class BikoTwigExtension extends TwigExtension {
       '#type' => 'link',
       '#title' => [
         '#type' => 'inline_template',
-        '#template' => $inline_template.'BIKO',
+        '#template' => $inline_template,
       ],
       '#url' => $url,
     ];
