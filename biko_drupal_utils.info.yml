@@ -1,7 +1,7 @@
 name: Biko Utils
-description: Biko utilities
+description: Biko Drupal utilities
 package: Biko
 
 type: module
 core: 8.x
-version: 1.0
+version: 8.1

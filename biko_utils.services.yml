@@ -1,5 +1,0 @@
-services:
-  biko_utils.theme:
-    class: Drupal\biko_utils\Theme\BikoThemeService
-  biko_utils.entity:
-    class: Drupal\biko_utils\Entity\BikoEntityService
