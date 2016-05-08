@@ -34,9 +34,9 @@ composer install biko2/biko_drupal_utils --prefer-source
 Si ya se ha instalado el módulo sin repositorio pero queremos tenerlo, hay que desinstalar el módulo, eliminarlo de composer, y hacer composer update. Una vez hecho, ya podemos añadirlo de nuevo a composer.json y ejecutar composer install con --prefer-source.
 
 ## CONFIGURACIÓN DE PHPSTORM ##
-Para que PhpStorm detecte que el módulo esta bajo git, hay que hacer:
+Para que PhpStorm trabaje con dos repos a la vez:
 
 * Settings > Version Control
 * Add new directory
 
-De esta forma podremos trabajar de forma simultánea con el repo global del proyecto, y con el del módulo.
+De esta forma podremos trabajar de forma simultánea con el repo global del proyecto y con el del módulo.
