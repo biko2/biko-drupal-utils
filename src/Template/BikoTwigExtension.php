@@ -18,7 +18,7 @@
  *
  */
 
-namespace Drupal\custom_twig_extension\Template;
+namespace Drupal\biko_drupal_utils\Template;
 
 use Drupal\Core\Template\TwigExtension;
 use Drupal\Core\Render\RendererInterface;
@@ -68,7 +68,7 @@ class BikoTwigExtension extends TwigExtension {
    */
   public function getFunctions() {
     return array(
-      new \Twig_SimpleFunction('link_html', array($this, 'getLink')),
+      new \Twig_SimpleFunction('link', array($this, 'getLink')),
     );
   }
 
@@ -132,7 +132,7 @@ class BikoTwigExtension extends TwigExtension {
       '#type' => 'link',
       '#title' => [
         '#type' => 'inline_template',
-        '#template' => $inline_template,
+        '#template' => $inline_template.'BIKO',
       ],
       '#url' => $url,
     ];

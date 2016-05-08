@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\biko_utils\Theme;
+namespace Drupal\biko_drupal_utils\Theme;
 
 class BikoThemeService {
 

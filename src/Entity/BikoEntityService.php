@@ -1,9 +1,9 @@
 <?php
-namespace Drupal\biko_utils\Entity;
+namespace Drupal\biko_drupal_utils\Entity;
 
 /**
  * Class BikoEntityService
- * @package Drupal\biko_utils\Entity
+ * @package Drupal\biko_drupal_utils\Entity
  *
  */
 

@@ -13,4 +13,4 @@ services:
     # En nuestro caso es imprescindible darle una prioridad mayor de 100
     # para permitir que Drupal cargue antes su propia extensión de Twig
     tags:
-        - { name: twig.extension, priority: 105 }
+        - { name: twig.extension, priority: 110 }
