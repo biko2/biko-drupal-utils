@@ -1,11 +1,9 @@
 # BIKO DRUPAL UTILS
 
----SUMARIO---
-
 Utilidades comunes para Drupal 8
 
 
----INSTALACIÓN---
+## INSTALACIÓN ##
 
 Añadir el repositorio privado de BitBucket a composer.json
 
@@ -26,9 +24,11 @@ Añadir el paquete a composer.json, haciendo que coincida con la versión de Dru
     },
 ```
 
-*IMPORTANTE*
+## IMPORTANTE ##
 Ejecutar composer con *--prefer-source* para que haga clone de este repositorio y podamos seguir trabajando en él directamente.
 
 ```
 composer install biko2/biko_drupal_utils --prefer-source
 ```
+
+Si ya se ha instalado el módulo, desinstalarlo, eliminarlo de composer, y hacer composer update. Una vez hecho, ya podemos añadir de nuevo el módulo a composer.json y ejecutar composer install con --prefer-source.
