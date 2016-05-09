@@ -16,7 +16,7 @@ Añadir el repositorio privado de BitBucket a composer.json
     ],
 ```
 
-Añadir el paquete a composer.json, haciendo que coincida con la versión de Drupal que usemos (8.1.* -> 8.1, 8.2.* -> 8.2, etc)
+Añadir el paquete a composer.json, haciendo que coincida con la versión de Drupal que usemos (8.1.x -> 8.1, 8.2.x -> 8.2, etc)
 ```json
     "require": {
         ...
@@ -25,13 +25,13 @@ Añadir el paquete a composer.json, haciendo que coincida con la versión de Dru
 ```
 
 ## IMPORTANTE ##
-Ejecutar composer con **--prefer-source** para que haga clone de este repositorio y podamos seguir trabajando en él directamente.
+Ejecutar composer install con **--prefer-source** para que haga clone de este repositorio y podamos seguir trabajando en él directamente.
 
 ```
 composer install biko2/biko_drupal_utils --prefer-source
 ```
 
-Si ya se ha instalado el módulo sin repositorio pero queremos tenerlo, hay que desinstalar el módulo, eliminarlo de composer, y hacer composer update. Una vez hecho, ya podemos añadirlo de nuevo a composer.json y ejecutar composer install con --prefer-source.
+Si ya se ha instalado el módulo sin repositorio pero queremos tenerlo, hay que desinstalar el módulo, eliminarlo de composer, y hacer "composer update biko2/biko_drupal_utils". Una vez hecho, ya podemos añadirlo de nuevo a composer.json y ejecutar composer install con --prefer-source.
 
 ## CONFIGURACIÓN DE PHPSTORM ##
 Para que PhpStorm trabaje con dos repos a la vez:
