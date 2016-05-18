@@ -31,7 +31,7 @@ Ejecutar composer require con **--prefer-source** para que haga clone de este re
 composer require biko2/biko_drupal_utils --prefer-source
 ```
 
-Si ya se ha instalado el módulo sin repositorio pero queremos tenerlo, hay que desinstalar el módulo, eliminarlo de composer, y hacer "composer update biko2/biko_drupal_utils". Una vez hecho, ya podemos añadirlo de nuevo a composer.json y ejecutar composer require con --prefer-source.
+Si ya se ha instalado el módulo sin repositorio pero queremos tenerlo, no hace falta desinstalar el módulo. Simplemente hay que volver a ejecutar  el "composer require" anterior con --prefer-source.
 
 ## CONFIGURACIÓN DE PHPSTORM ##
 Para que PhpStorm trabaje con dos repos a la vez:
