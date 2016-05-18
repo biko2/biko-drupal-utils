@@ -25,13 +25,13 @@ Añadir el paquete a composer.json, haciendo que coincida con la versión de Dru
 ```
 
 ## IMPORTANTE ##
-Ejecutar composer install con **--prefer-source** para que haga clone de este repositorio y podamos seguir trabajando en él directamente.
+Ejecutar composer require con **--prefer-source** para que haga clone de este repositorio y podamos seguir trabajando en él directamente.
 
 ```
-composer install biko2/biko_drupal_utils --prefer-source
+composer require biko2/biko_drupal_utils --prefer-source
 ```
 
-Si ya se ha instalado el módulo sin repositorio pero queremos tenerlo, hay que desinstalar el módulo, eliminarlo de composer, y hacer "composer update biko2/biko_drupal_utils". Una vez hecho, ya podemos añadirlo de nuevo a composer.json y ejecutar composer install con --prefer-source.
+Si ya se ha instalado el módulo sin repositorio pero queremos tenerlo, hay que desinstalar el módulo, eliminarlo de composer, y hacer "composer update biko2/biko_drupal_utils". Una vez hecho, ya podemos añadirlo de nuevo a composer.json y ejecutar composer require con --prefer-source.
 
 ## CONFIGURACIÓN DE PHPSTORM ##
 Para que PhpStorm trabaje con dos repos a la vez:
