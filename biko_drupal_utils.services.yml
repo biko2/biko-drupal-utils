@@ -3,6 +3,8 @@ services:
     class: Drupal\biko_drupal_utils\Theme\BikoThemeService
   biko.entity:
     class: Drupal\biko_drupal_utils\Entity\BikoEntityService
+  biko.render:
+    class: Drupal\biko_drupal_utils\Render\BikoRenderService
   biko.twig_extension:
     class: Drupal\biko_drupal_utils\Template\BikoTwigExtension
     arguments: ['@renderer']
