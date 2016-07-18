@@ -69,6 +69,7 @@ class BikoTwigExtension extends TwigExtension {
   public function getFunctions() {
     return array(
       new \Twig_SimpleFunction('link_html', array($this, 'getLink')),
+      new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
     );
   }
 
@@ -141,4 +142,37 @@ class BikoTwigExtension extends TwigExtension {
   }
 
 
-}
+
+  /**
+   * Añade a un array multidimensional los elementos que queramos
+   *
+   * @param array $array
+   *   El array original
+   * @param array $keys
+   *   El "path" hasta el punto del array donde queremos acceder.
+   *   Es un array con los keys a usar
+   * @param array $arrayToAdd
+   *   Datos a añadir
+   *
+   * @return array
+   *   Array con los nuevos datos
+   */
+  public function addToArray($array, $keys, $arrayToAdd) {
+
+//    echo '<pre>'.print_r($array['link']['#title'],1).'</pre>';exit;
+    // Si tenemos keys, seguimos iterando recursivamente
+    if (count($keys)) {
+      $currentKey = array_shift($keys);
+      $array[$currentKey] = $this->addToArray($array[$currentKey], $keys, $arrayToAdd);
+    }
+    // Si ya no quedan keys, es que hemos llegado a la profundidad deseada
+    else {
+      $array = array_merge($array,$arrayToAdd);
+    }
+
+    return $array;
+  }
+
+
+
+  }
