@@ -71,6 +71,8 @@ class BikoTwigExtension extends TwigExtension {
             new \Twig_SimpleFunction('link_html', array($this, 'getLink')),
             new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
             new \Twig_SimpleFunction('path_alias', array($this, 'pathAlias')),
+            new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
+            new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
         );
     }
 
@@ -191,6 +193,41 @@ class BikoTwigExtension extends TwigExtension {
     }
 
 
+    /**
+     * Obtiene el html de cualquier nodo
+     *
+     * @param integer $nodeId
+     *  Id del nodo
+     * @param string $viewMode
+     *  ViewMode (por defecto será null)
+     *
+     * @return string
+     *
+     */
+    public function renderNode($nodeId, $viewMode = 'full') {
+        // Obtenemos la entidad del nodo
+        $nodeEntity = \Drupal\node\Entity\Node::load($nodeId);
+
+        // Obtenemos el html del nodo
+        return \Drupal::service('biko.entity')->getNodeRendering($nodeEntity, $viewMode);
+    }
+
+    /**
+     * Obtiene el html de cualquier bloque
+     *
+     * @param integer $blockId
+     *  Id del bloque
+     *
+     * @return string
+     *
+     */
+    public function renderBlock($blockId) {
+        // Obtenemos la entidad del bloque
+        $blockEntity = \Drupal\block\Entity\Block::load($blockId);
+
+        // Obtenemos el html del bloque
+        return \Drupal::service('biko.entity')->getBlockRendering($blockEntity);
+    }
 
 
 }
