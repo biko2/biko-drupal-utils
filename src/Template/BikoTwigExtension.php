@@ -24,6 +24,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Template\TwigExtension;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
+use Drupal\file\Entity\File;
 
 
 class BikoTwigExtension extends TwigExtension {
@@ -74,6 +75,7 @@ class BikoTwigExtension extends TwigExtension {
             new \Twig_SimpleFunction('path_alias', array($this, 'pathAlias')),
             new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
             new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
+            new \Twig_SimpleFunction('file_absolute_url', array($this, 'fileAbsoluteUrl')),
         );
     }
 
@@ -163,7 +165,7 @@ class BikoTwigExtension extends TwigExtension {
      */
     public function addToArray($array, $keys, $arrayToAdd) {
 
-        // echo '<pre>'.print_r($array['link']['#title'],1).'</pre>';exit;
+//       echo '<pre>'.print_r(array_keys($array['field_taxonomy_image'][0]['#item_attributes']),1).'</pre>';exit;
         // Si tenemos keys, seguimos iterando recursivamente
         if (count($keys)) {
             $currentKey = array_shift($keys);
@@ -190,7 +192,13 @@ class BikoTwigExtension extends TwigExtension {
      *   Alias en formato /{languageCode}/{alias}
      */
     public function pathAlias($path, $languageCode) {
-        return '/'.$languageCode.\Drupal::service('path.alias_manager')->getAliasByPath($path,$languageCode);
+        $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path,$languageCode);
+        // Si el alias no devuelve nada, como en las portadas,
+        // que produce urls como "/es/node/", lo dejamos vacio para que apunte a "/es"
+        if ($alias == '/node/') {
+            $alias = null;
+        }
+        return '/'.$languageCode.$alias;
     }
 
 
@@ -228,6 +236,25 @@ class BikoTwigExtension extends TwigExtension {
 
         // Obtenemos el html del bloque
         return \Drupal::service('biko.entity')->getBlockRendering($blockEntity);
+    }
+
+
+    /**
+     * Obtiene el url absoluto de un Drupal\file\Entity\File
+     *
+     * @param File $file
+     *  No forzamos el tipo Drupal\file\Entity\File en la firma del método, ya
+     *  si estamos creando nodos o taxonomías y estas todavía no tienen imagen,
+     *  se rompe el site entero
+     *
+     * @return string|null
+     *
+     */
+    public function fileAbsoluteUrl($file) {
+        if (get_class($file) == 'Drupal\file\Entity\File') {
+           return $file->url();
+        }
+        return null;
     }
 
 
