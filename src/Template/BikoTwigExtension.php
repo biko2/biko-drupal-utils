@@ -20,6 +20,7 @@
 
 namespace Drupal\biko_drupal_utils\Template;
 
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Template\TwigExtension;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
@@ -68,7 +69,7 @@ class BikoTwigExtension extends TwigExtension {
      */
     public function getFunctions() {
         return array(
-            new \Twig_SimpleFunction('link_html', array($this, 'getLink')),
+            new \Twig_SimpleFunction('link_html', array($this, 'linkHtml')),
             new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
             new \Twig_SimpleFunction('path_alias', array($this, 'pathAlias')),
             new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
@@ -117,7 +118,7 @@ class BikoTwigExtension extends TwigExtension {
      * @return array
      *   Array de renderizado representando un link html con la URL dada.
      */
-    public function getLink($inline_template, $url, $attributes = []) {
+    public function linkHtml($inline_template, $url, $attributes = []) {
         if (!$url instanceof Url) {
             $url = Url::fromUri($url);
         }
