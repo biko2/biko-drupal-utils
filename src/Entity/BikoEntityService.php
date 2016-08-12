@@ -7,7 +7,8 @@ namespace Drupal\biko_drupal_utils\Entity;
  *
  */
 
-class BikoEntityService {
+class BikoEntityService
+{
 
     /**
      * Obtiene el renderizado de un node
@@ -16,7 +17,8 @@ class BikoEntityService {
      * @param string $viewMode
      * @return String
      */
-    public function getNodeRendering(\Drupal\node\Entity\Node $node, $viewMode = 'full') {
+    public function getNodeRendering(\Drupal\node\Entity\Node $node, $viewMode = 'full')
+    {
         return $this->getEntityRendering($node, $viewMode);
     }
 
@@ -26,8 +28,21 @@ class BikoEntityService {
      * @param \Drupal\block\Entity\Block $block
      * @return string
      */
-    public function getBlockRendering(\Drupal\block\Entity\Block $block) {
+    public function getBlockRendering(\Drupal\block\Entity\Block $block)
+    {
         return $this->getEntityRendering($block, null);
+    }
+
+    /**
+     * Obtiene el renderizado de un ContactForm
+     *
+     * @param \Drupal\contact\Entity\ContactForm $form
+     * @param string $viewMode
+     * @return String
+     */
+    public function getContactFormRendering(\Drupal\contact\Entity\ContactForm $form)
+    {
+        return $this->getEntityRendering($form);
     }
 
     /**
@@ -37,7 +52,8 @@ class BikoEntityService {
      * @param string $viewMode
      * @return Array
      */
-    public function getNodeRenderArray(\Drupal\node\Entity\Node $node, $viewMode = 'full') {
+    public function getNodeRenderArray(\Drupal\node\Entity\Node $node, $viewMode = 'full')
+    {
         return $this->getEntityRenderArray($node, $viewMode);
     }
 
@@ -47,7 +63,8 @@ class BikoEntityService {
      * @param \Drupal\block\Entity\Block $block
      * @return Array
      */
-    public function getBlockRenderArray(\Drupal\block\Entity\Block $block) {
+    public function getBlockRenderArray(\Drupal\block\Entity\Block $block)
+    {
         return $this->getEntityRenderArray($block, null);
     }
 
@@ -61,7 +78,8 @@ class BikoEntityService {
      * @return string
      *  HTML con el renderizado de la entidad
      */
-    protected function getEntityRendering(\Drupal\Core\Entity\EntityInterface $entity, $viewMode) {
+    protected function getEntityRendering(\Drupal\Core\Entity\EntityInterface $entity, $viewMode)
+    {
         $entityRenderArray = $this->getEntityRenderArray($entity, $viewMode);
         return \Drupal::service('renderer')->render($entityRenderArray);
     }
@@ -76,12 +94,12 @@ class BikoEntityService {
      * @return Array
      *  Render array de la entidad
      */
-    protected function getEntityRenderArray(\Drupal\Core\Entity\EntityInterface $entity, $viewMode) {
+    protected function getEntityRenderArray(\Drupal\Core\Entity\EntityInterface $entity, $viewMode)
+    {
         $renderController = \Drupal::entityTypeManager()->getViewBuilder($entity->getEntityTypeId());
         if ($viewMode) {
             $entityRenderArray = $renderController->view($entity, $viewMode);
-        }
-        else {
+        } else {
             $entityRenderArray = $renderController->view($entity);
         }
         return $entityRenderArray;
@@ -117,5 +135,4 @@ class BikoEntityService {
         }
     }
     */
-
 }

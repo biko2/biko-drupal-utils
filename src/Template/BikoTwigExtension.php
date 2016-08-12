@@ -26,8 +26,8 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 
-
-class BikoTwigExtension extends TwigExtension {
+class BikoTwigExtension extends TwigExtension
+{
     /**
      * The renderer.
      *
@@ -41,7 +41,8 @@ class BikoTwigExtension extends TwigExtension {
      * @param \Drupal\Core\Render\RendererInterface $renderer
      *   The renderer.
      */
-    public function __construct(RendererInterface $renderer) {
+    public function __construct(RendererInterface $renderer)
+    {
         parent::__construct($renderer);
         $this->renderer = $renderer;
     }
@@ -52,7 +53,8 @@ class BikoTwigExtension extends TwigExtension {
      * @return string
      *   A unique identifier for this Twig extension.
      */
-    public function getName() {
+    public function getName()
+    {
         return 'biko_twig_extension';
     }
 
@@ -68,13 +70,15 @@ class BikoTwigExtension extends TwigExtension {
      *
      *   The value is a standard PHP callback that defines what the function does.
      */
-    public function getFunctions() {
+    public function getFunctions()
+    {
         return array(
             new \Twig_SimpleFunction('link_html', array($this, 'linkHtml')),
             new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
             new \Twig_SimpleFunction('path_alias', array($this, 'pathAlias')),
             new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
             new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
+            new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
             new \Twig_SimpleFunction('file_absolute_url', array($this, 'fileAbsoluteUrl')),
         );
     }
@@ -120,7 +124,8 @@ class BikoTwigExtension extends TwigExtension {
      * @return array
      *   Array de renderizado representando un link html con la URL dada.
      */
-    public function linkHtml($inline_template, $url, $attributes = []) {
+    public function linkHtml($inline_template, $url, $attributes = [])
+    {
         if (!$url instanceof Url) {
             $url = Url::fromUri($url);
         }
@@ -163,7 +168,8 @@ class BikoTwigExtension extends TwigExtension {
      * @return array
      *   Array con los nuevos datos
      */
-    public function addToArray($array, $keys, $arrayToAdd) {
+    public function addToArray($array, $keys, $arrayToAdd)
+    {
 
 //       echo '<pre>'.print_r(array_keys($array['field_taxonomy_image'][0]['#item_attributes']),1).'</pre>';exit;
         // Si tenemos keys, seguimos iterando recursivamente
@@ -173,7 +179,7 @@ class BikoTwigExtension extends TwigExtension {
         }
         // Si ya no quedan keys, es que hemos llegado a la profundidad deseada
         else {
-            $array = array_merge($array,$arrayToAdd);
+            $array = array_merge($array, $arrayToAdd);
         }
 
         return $array;
@@ -191,8 +197,9 @@ class BikoTwigExtension extends TwigExtension {
      * @return string
      *   Alias en formato /{languageCode}/{alias}
      */
-    public function pathAlias($path, $languageCode) {
-        $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path,$languageCode);
+    public function pathAlias($path, $languageCode)
+    {
+        $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path, $languageCode);
         // Si el alias no devuelve nada, como en las portadas,
         // que produce urls como "/es/node/", lo dejamos vacio para que apunte a "/es"
         if ($alias == '/node/') {
@@ -213,7 +220,8 @@ class BikoTwigExtension extends TwigExtension {
      * @return string
      *
      */
-    public function renderNode($nodeId, $viewMode = 'full') {
+    public function renderNode($nodeId, $viewMode = 'full')
+    {
         // Obtenemos la entidad del nodo
         $nodeEntity = \Drupal\node\Entity\Node::load($nodeId);
 
@@ -230,13 +238,34 @@ class BikoTwigExtension extends TwigExtension {
      * @return string
      *
      */
-    public function renderBlock($blockId) {
+    public function renderBlock($blockId)
+    {
         // Obtenemos la entidad del bloque
         $blockEntity = \Drupal\block\Entity\Block::load($blockId);
 
         // Obtenemos el html del bloque
         return \Drupal::service('biko.entity')->getBlockRendering($blockEntity);
     }
+
+    /**
+         * Obtiene el html de cualquier ContactForm
+         *
+         * @param integer $formId
+         *  Id del bloque
+         *
+         * @return string
+         *
+         */
+        public function renderContactForm($formId)
+        {
+            // Obtenemos la entidad del form
+            $formEntity = \Drupal\contact\Entity\ContactForm::load($formId);
+            if (!empty($formEntity)) {
+                // Obtenemos el html del bloque
+            return \Drupal::service('biko.entity')->getContactFormRendering($formEntity);
+            }
+            return null;
+        }
 
 
     /**
@@ -250,12 +279,11 @@ class BikoTwigExtension extends TwigExtension {
      * @return string|null
      *
      */
-    public function fileAbsoluteUrl($file) {
+    public function fileAbsoluteUrl($file)
+    {
         if (get_class($file) == 'Drupal\file\Entity\File') {
-           return $file->url();
+            return $file->url();
         }
         return null;
     }
-
-
 }
