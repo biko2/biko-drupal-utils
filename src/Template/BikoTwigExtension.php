@@ -256,16 +256,25 @@ class BikoTwigExtension extends TwigExtension
          * @return string
          *
          */
-        public function renderContactForm($formId)
-        {
-            // Obtenemos la entidad del form
-            $formEntity = \Drupal\contact\Entity\ContactForm::load($formId);
-            if (!empty($formEntity)) {
-                // Obtenemos el html del bloque
-            return \Drupal::service('biko.entity')->getContactFormRendering($formEntity);
-            }
-            return null;
-        }
+         public function renderContactForm($formId)
+         {
+             // Obtenemos la entidad del form
+         $formEntity = \Drupal\contact\Entity\ContactForm::load($formId);
+             if (!empty($formEntity)) {
+                 $message = \Drupal::entityTypeManager()
+               ->getStorage('contact_message')
+               ->create(array(
+                 'contact_form' => $formId,
+               ));
+
+             // This works in a controller, use \Drupal::service('entity.form_builder') elsewhere.
+             $form = \Drupal::service('entity.form_builder')->getForm($message);
+             //$form['#title'] = \Drupal\Component\Utility\SafeMarkup::checkPlain($formEntity->label());
+             // Obtenemos el html del bloque
+             return $form;
+             }
+             return null;
+         }
 
 
     /**

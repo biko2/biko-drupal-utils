@@ -33,17 +33,7 @@ class BikoEntityService
         return $this->getEntityRendering($block, null);
     }
 
-    /**
-     * Obtiene el renderizado de un ContactForm
-     *
-     * @param \Drupal\contact\Entity\ContactForm $form
-     * @param string $viewMode
-     * @return String
-     */
-    public function getContactFormRendering(\Drupal\contact\Entity\ContactForm $form)
-    {
-        return $this->getEntityRendering($form);
-    }
+    
 
     /**
      * Obtiene el render array de un node
