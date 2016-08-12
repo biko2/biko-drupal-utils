@@ -247,33 +247,33 @@ class BikoTwigExtension extends TwigExtension
     }
 
     /**
-         * Obtiene el html de cualquier ContactForm
-         *
-         * @param integer $formId
-         *  Id del bloque
-         *
-         * @return string
-         *
-         */
-         public function renderContactForm($formId)
-         {
-             // Obtenemos la entidad del form
-         $formEntity = \Drupal\contact\Entity\ContactForm::load($formId);
-             if (!empty($formEntity)) {
-                 $message = \Drupal::entityTypeManager()
-               ->getStorage('contact_message')
-               ->create(array(
-                 'contact_form' => $formId,
-               ));
+     * Obtiene el html de cualquier ContactForm
+     *
+     * @param integer $formId
+     *  Id del bloque
+     *
+     * @return string
+     *
+     */
+    public function renderContactForm($formId)
+    {
+        // Obtenemos la entidad del form
+        $formEntity = \Drupal\contact\Entity\ContactForm::load($formId);
+        if (!empty($formEntity)) {
+            $message = \Drupal::entityTypeManager()
+                ->getStorage('contact_message')
+                ->create(array(
+                    'contact_form' => $formId,
+                ));
 
-             // This works in a controller, use \Drupal::service('entity.form_builder') elsewhere.
-             $form = \Drupal::service('entity.form_builder')->getForm($message);
-             //$form['#title'] = \Drupal\Component\Utility\SafeMarkup::checkPlain($formEntity->label());
-             // Obtenemos el html del bloque
-             return $form;
-             }
-             return null;
-         }
+            // This works in a controller, use \Drupal::service('entity.form_builder') elsewhere.
+            $form = \Drupal::service('entity.form_builder')->getForm($message);
+            //$form['#title'] = \Drupal\Component\Utility\SafeMarkup::checkPlain($formEntity->label());
+            // Obtenemos el html del bloque
+            return $form;
+        }
+        return null;
+    }
 
 
     /**
