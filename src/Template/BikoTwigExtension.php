@@ -70,8 +70,7 @@ class BikoTwigExtension extends TwigExtension
      *
      *   The value is a standard PHP callback that defines what the function does.
      */
-    public function getFunctions()
-    {
+    public function getFunctions() {
         return array(
             new \Twig_SimpleFunction('link_html', array($this, 'linkHtml')),
             new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
