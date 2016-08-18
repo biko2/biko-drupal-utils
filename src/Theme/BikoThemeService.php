@@ -26,7 +26,6 @@ class BikoThemeService {
      *
      * @param string $themeName
      *  Nombre del theme
-     * @return string
      */
     public function setActiveTheme($themeName) {
         $theme = \Drupal::service('theme.initialization')->initTheme($themeName);
