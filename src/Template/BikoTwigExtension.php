@@ -79,7 +79,7 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
             new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
             new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
-            new \Twig_SimpleFunction('get_image_style_url', array($this, 'getImageStyleUrl')),
+            new \Twig_SimpleFunction('render_image_style', array($this, 'renderImageStyle')),
         );
     }
 
@@ -276,8 +276,8 @@ class BikoTwigExtension extends TwigExtension
         return null;
     }
 
-    public function getImageStyleUrl($fid, $imageStyle)
+    public function renderImageStyle($fid, $imageStyle)
     {
-        return \Drupal::service('biko.render')->getImageStyleUrl($fid, $imageStyle);
+        return \Drupal::service('biko.render')->renderImageStyle($fid, $imageStyle);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace Drupal\biko_drupal_utils\Render;
 
+use Drupal\file\Entity\File;
+
 /**
  * Class BikoRenderService
  * @package Drupal\biko_drupal_utils\Render
@@ -50,7 +52,7 @@ class BikoRenderService
     /**
     * Devuelve la url de la imagen con el estilo indicado generado
     */
-    public function getImageStyleUrl($fid, $imageStyle)
+    public function renderImageStyle($fid, $imageStyle)
     {
         $file = File::load($fid);
         if ($file) {
@@ -72,11 +74,14 @@ class BikoRenderService
         '#height' => $variables['height'],
         '#style_name' => $variables['style_name'],
         '#uri' => $variables['uri'],
+
       ];
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
       $renderer = \Drupal::service('renderer');
             $renderer->addCacheableDependency($logo_build, $file);
+            $style = entity_load('image_style', $imageStyle);
+            return $style->buildUrl($variables['uri']);
       // Return the render array as block content.
       return [
         'logo' => $logo_build,
