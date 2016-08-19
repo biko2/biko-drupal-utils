@@ -70,7 +70,8 @@ class BikoTwigExtension extends TwigExtension
      *
      *   The value is a standard PHP callback that defines what the function does.
      */
-    public function getFunctions() {
+    public function getFunctions()
+    {
         return array(
             new \Twig_SimpleFunction('link_html', array($this, 'linkHtml')),
             new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
@@ -261,10 +262,10 @@ class BikoTwigExtension extends TwigExtension
         $formEntity = \Drupal\contact\Entity\ContactForm::load($formId);
         if (!empty($formEntity)) {
             $message = \Drupal::entityTypeManager()
-                ->getStorage('contact_message')
-                ->create(array(
-                    'contact_form' => $formId,
-                ));
+              ->getStorage('contact_message')
+              ->create(array(
+                'contact_form' => $formId,
+              ));
 
             // This works in a controller, use \Drupal::service('entity.form_builder') elsewhere.
             $form = \Drupal::service('entity.form_builder')->getForm($message);
