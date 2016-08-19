@@ -81,7 +81,7 @@ class BikoRenderService
       $renderer = \Drupal::service('renderer');
             $renderer->addCacheableDependency($logo_build, $file);*/
             $style = entity_load('image_style', $imageStyle);
-            return $style->buildUrl($variables['uri']);
+            return $style->buildUrl($file->getFileUri());
       // Return the render array as block content.
       /*return [
         'logo' => $logo_build,
