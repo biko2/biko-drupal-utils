@@ -52,11 +52,11 @@ class BikoRenderService
     /**
     * Devuelve la url de la imagen con el estilo indicado generado
     */
-    public function renderImageStyle($fid, $imageStyle)
+    public function getImageStyleUrl($fid, $imageStyle)
     {
         $file = File::load($fid);
         if ($file) {
-            $variables = array(
+            /*$variables = array(
         'style_name' => $imageStyle,
         'uri' => $file->getFileUri(),
       );
@@ -79,16 +79,16 @@ class BikoRenderService
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
       $renderer = \Drupal::service('renderer');
-            $renderer->addCacheableDependency($logo_build, $file);
+            $renderer->addCacheableDependency($logo_build, $file);*/
             $style = entity_load('image_style', $imageStyle);
             return $style->buildUrl($variables['uri']);
       // Return the render array as block content.
-      return [
+      /*return [
         'logo' => $logo_build,
       ];
         } else {
             // Image not found, return empty block.
-      return [];
+      return [];*/
         }
     }
 }

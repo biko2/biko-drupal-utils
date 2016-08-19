@@ -278,6 +278,6 @@ class BikoTwigExtension extends TwigExtension
 
     public function renderImageStyle($fid, $imageStyle)
     {
-        return \Drupal::service('biko.render')->renderImageStyle($fid, $imageStyle);
+        return \Drupal::service('biko.render')->getImageStyleUrl($fid, $imageStyle);
     }
 }
