@@ -114,6 +114,8 @@ class BikoTwigExtension extends TwigExtension
     /**
      * Renderiza un link a partir de un objeto url, usando una plantilla inline
      *
+     * @example {{ link_html('span>'~item.title~'</span>', item.url, { 'class':['foo', 'bar', 'baz']} ) }}
+     *
      * @param string $inline_template
      *   Plantilla inline que estará dentro del link renderizado.
      * @param \Drupal\Core\Url|string $url
@@ -157,6 +159,9 @@ class BikoTwigExtension extends TwigExtension
     /**
      * Añade a un array multidimensional los elementos que queramos
      *
+     * @example {% set item = add_to_array(item, ['link', '#options', 'attributes', 'class'], ['text-color-dove-gray']) %}
+     * @example {{ item.link }}
+     *
      * @param array $array
      *   El array original
      * @param array $keys
@@ -189,6 +194,8 @@ class BikoTwigExtension extends TwigExtension
     /**
      * Obtiene el alias de cualquier path /node/NNN
      *
+     * @example {{ path_alias('/node/'~current_node.id, item.link['#options'].language.id) }}
+     *
      * @param string $path
      *   Path en formato /node/NNN
      * @param string $languageCode
@@ -212,8 +219,11 @@ class BikoTwigExtension extends TwigExtension
     /**
      * Obtiene el html de cualquier nodo
      *
+     * @example {{ render_node(1) }}
+     *
      * @param integer $nodeId
      *  Id del nodo
+     *
      * @param string $viewMode
      *  ViewMode (por defecto será null)
      *
@@ -232,6 +242,8 @@ class BikoTwigExtension extends TwigExtension
     /**
      * Obtiene el html de cualquier bloque
      *
+     * @example {{ render_block('views_block__product_category_taxomony_menu_block_mobile') }}
+     *
      * @param integer $blockId
      *  Id del bloque
      *
@@ -249,6 +261,8 @@ class BikoTwigExtension extends TwigExtension
 
     /**
      * Obtiene el html de cualquier ContactForm
+     *
+     * @example {{ render_contact_form(content.field_contenido_relacionado['#items'].entity.field_form[0].target_id) }}
      *
      * @param integer $formId
      *  Id del bloque
@@ -276,8 +290,21 @@ class BikoTwigExtension extends TwigExtension
         return null;
     }
 
-    public function getImageStyleUrl($fid, $imageStyle)
+    /**
+     * Genera un estilo de imagen a disco si ese estilo no existe, y devuelve su url
+     *
+     * @example {{ image_style_url(content.field_imagen['#items'].entity.id,'half_500x500') }}
+     *
+     * @param int $fileId
+     *  Id de la entity del fichero
+     * @param string $imageStyle
+     *  Nombre del style de la imagen, por ejemplo "half_500x500"
+     *
+     * @return string|null
+     */
+
+    public function getImageStyleUrl($fileId, $imageStyle)
     {
-        return \Drupal::service('biko.render')->getImageStyleUrl($fid, $imageStyle);
+        return \Drupal::service('biko.render')->getImageStyleUrl($fileId, $imageStyle);
     }
 }

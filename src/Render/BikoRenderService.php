@@ -2,6 +2,7 @@
 namespace Drupal\biko_drupal_utils\Render;
 
 use Drupal\file\Entity\File;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Class BikoRenderService
@@ -50,45 +51,22 @@ class BikoRenderService
     }
 
     /**
-    * Devuelve la url de la imagen con el estilo indicado generado
-    */
-    public function getImageStyleUrl($fid, $imageStyle)
+     * Genera un estilo de imagen a disco si ese estilo no existe, y devuelve su url
+     *
+     * @param int $fileId
+     *  Id de la entity del fichero
+     * @param string $imageStyle
+     *  Nombre del style de la imagen, por ejemplo "half_500x500"
+     *
+     * @return string|null
+     */
+    public function getImageStyleUrl($fileId, $imageStyle)
     {
-        $file = File::load($fid);
+        $file = File::load($fileId);
         if ($file) {
-            /*$variables = array(
-        'style_name' => $imageStyle,
-        'uri' => $file->getFileUri(),
-      );
-      // The image.factory service will check if our image is valid.
-      $image = \Drupal::service('image.factory')->get($file->getFileUri());
-            if ($image->isValid()) {
-                $variables['width'] = $image->getWidth();
-                $variables['height'] = $image->getHeight();
-            } else {
-                $variables['width'] = $variables['height'] = null;
-            }
-            $logo_build = [
-        '#theme' => 'image_style',
-        '#width' => $variables['width'],
-        '#height' => $variables['height'],
-        '#style_name' => $variables['style_name'],
-        '#uri' => $variables['uri'],
-
-      ];
-      // Add the file entity to the cache dependencies.
-      // This will clear our cache when this entity updates.
-      $renderer = \Drupal::service('renderer');
-            $renderer->addCacheableDependency($logo_build, $file);*/
-            $style = entity_load('image_style', $imageStyle);
+            $style = ImageStyle::load($imageStyle);
             return $style->buildUrl($file->getFileUri());
-      // Return the render array as block content.
-      /*return [
-        'logo' => $logo_build,
-      ];
-        } else {
-            // Image not found, return empty block.
-      return [];*/
         }
+        return null;
     }
 }
