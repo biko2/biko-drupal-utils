@@ -81,7 +81,7 @@ class BikoEntityService
      *  Entidad (\Drupal\node\Entity\Node, \Drupal\block\Entity/Block, etc)
      * @param $viewMode
      *  View Mode para entidades de tipo Node
-     * @return Array
+     * @return array
      *  Render array de la entidad
      */
     protected function getEntityRenderArray(\Drupal\Core\Entity\EntityInterface $entity, $viewMode)

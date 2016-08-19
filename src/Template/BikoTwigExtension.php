@@ -79,7 +79,6 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
             new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
             new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
-            new \Twig_SimpleFunction('file_absolute_url', array($this, 'fileAbsoluteUrl')),
         );
     }
 
@@ -277,22 +276,4 @@ class BikoTwigExtension extends TwigExtension
     }
 
 
-    /**
-     * Obtiene el url absoluto de un Drupal\file\Entity\File
-     *
-     * @param File $file
-     *  No forzamos el tipo Drupal\file\Entity\File en la firma del método, ya
-     *  si estamos creando nodos o taxonomías y estas todavía no tienen imagen,
-     *  se rompe el site entero
-     *
-     * @return string|null
-     *
-     */
-    public function fileAbsoluteUrl($file)
-    {
-        if (get_class($file) == 'Drupal\file\Entity\File') {
-            return $file->url();
-        }
-        return null;
-    }
 }
