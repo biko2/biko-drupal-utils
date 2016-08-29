@@ -80,6 +80,7 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
             new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
             new \Twig_SimpleFunction('image_style_url', array($this, 'getImageStyleUrl')),
+            new \Twig_SimpleFunction('get_class', array($this, 'getClass')),
         );
     }
 
@@ -313,5 +314,20 @@ class BikoTwigExtension extends TwigExtension
     public function getImageStyleUrl($fileId, $imageStyle)
     {
         return \Drupal::service('biko.render')->getImageStyleUrl($fileId, $imageStyle);
+    }
+
+    /**
+     * Devuelve la clase del objeto (util en debugeo)
+     *
+     * @example {{ get_class(view.result[0]) }}
+     *
+     * @param object $object
+     *
+     * @return string
+     */
+
+    public function getClass($object)
+    {
+        return get_class($object);
     }
 }
