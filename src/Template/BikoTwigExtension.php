@@ -180,11 +180,18 @@ class BikoTwigExtension extends TwigExtension
         // Si tenemos keys, seguimos iterando recursivamente
         if (count($keys)) {
             $currentKey = array_shift($keys);
+            if (!isset($array[$currentKey])) {
+                $array[$currentKey]=array();
+            }
             $array[$currentKey] = $this->addToArray($array[$currentKey], $keys, $arrayToAdd);
         }
         // Si ya no quedan keys, es que hemos llegado a la profundidad deseada
         else {
-            $array = array_merge($array, $arrayToAdd);
+            if (is_array($arrayToAdd)) {
+                $array = array_merge($array, $arrayToAdd);
+            } else {
+                $array = $arrayToAdd;
+            }
         }
 
         return $array;
