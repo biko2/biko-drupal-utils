@@ -182,7 +182,7 @@ class BikoTwigExtension extends TwigExtension
         if (count($keys)) {
             $currentKey = array_shift($keys);
             if (!isset($array[$currentKey])) {
-                $array[$currentKey]=array();
+                $array[$currentKey] = array();
             }
             $array[$currentKey] = $this->addToArray($array[$currentKey], $keys, $arrayToAdd);
         }
@@ -190,7 +190,8 @@ class BikoTwigExtension extends TwigExtension
         else {
             if (is_array($arrayToAdd)) {
                 $array = array_merge($array, $arrayToAdd);
-            } else {
+            }
+            else {
                 $array = $arrayToAdd;
             }
         }
