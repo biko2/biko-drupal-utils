@@ -25,6 +25,7 @@ use Drupal\Core\Template\TwigExtension;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use ReflectionObject;
 
 class BikoTwigExtension extends TwigExtension
 {
@@ -81,6 +82,7 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
             new \Twig_SimpleFunction('image_style_url', array($this, 'getImageStyleUrl')),
             new \Twig_SimpleFunction('get_class', array($this, 'getClass')),
+            new \Twig_SimpleFunction('reflection_export', array($this, 'reflectionExport')),
         );
     }
 
@@ -326,9 +328,25 @@ class BikoTwigExtension extends TwigExtension
      *
      * @return string
      */
-
     public function getClass($object)
     {
         return get_class($object);
     }
+
+
+    /**
+     * Muestra la clase del objeto (util en debugeo)
+     *
+     * @example {{ reflection_export(view.result[0]) }}
+     *
+     * @param object $object
+     *
+     * @return string
+     */
+    public function reflectionExport($object)
+    {
+        return '<pre>'.ReflectionObject::export($object, true).'<pre>';
+    }
+
+
 }
