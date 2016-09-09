@@ -83,6 +83,7 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('image_style_url', array($this, 'getImageStyleUrl')),
             new \Twig_SimpleFunction('get_class', array($this, 'getClass')),
             new \Twig_SimpleFunction('reflection_export', array($this, 'reflectionExport')),
+            new \Twig_SimpleFunction('drupal_format_size', 'format_size'),
         );
     }
 
