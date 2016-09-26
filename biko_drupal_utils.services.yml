@@ -16,3 +16,10 @@ services:
     # para permitir que Drupal cargue antes su propia extensión de Twig
     tags:
         - { name: twig.extension, priority: 110 }
+  biko.language:
+    class: Drupal\biko_drupal_utils\Language\BikoLanguageService
+  biko.language_negotiator:
+    class: Drupal\biko_drupal_utils\Language\BikoLanguageNegotiator
+    arguments: ['@language_manager', '@plugin.manager.language_negotiation_method', '@config.factory', '@settings', '@request_stack']
+    calls:
+      - [initLanguageManager]
