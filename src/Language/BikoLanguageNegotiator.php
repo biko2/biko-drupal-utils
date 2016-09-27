@@ -2,13 +2,6 @@
 
 namespace Drupal\biko_drupal_utils\Language;
 
-use Drupal\Component\Plugin\PluginManagerInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Site\Settings;
-use Drupal\language\LanguageNegotiator;
-use Drupal\language\Plugin\LanguageNegotiation\LanguageNegotiationUI;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class responsible for performing language negotiation.
