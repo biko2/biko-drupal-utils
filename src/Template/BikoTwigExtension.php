@@ -218,13 +218,27 @@ class BikoTwigExtension extends TwigExtension
      */
     public function pathAlias($path, $languageCode)
     {
-        $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path, $languageCode);
-        // Si el alias no devuelve nada, como en las portadas,
-        // que produce urls como "/es/node/", lo dejamos vacio para que apunte a "/es"
-        if ($alias == '/node/') {
-            $alias = null;
+        $alias = '';
+
+        if (substr($path, 0, 1) == '/') {
+
+            $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path, $languageCode);
+            // Si el alias no devuelve nada, como en las portadas,
+            // que produce urls como "/es/node/", lo dejamos vacio para que apunte a "/es"
+            if ($alias == '/node/') {
+                $alias = null;
+            }
+
+            // Obtenemos la config de autodetención de idioma para ver qué código de idioma hay que poner
+            $languageNegotiationConfig = \Drupal::config('language.negotiation')->get('url')['prefixes'];
+
+            if (!empty($languageNegotiationConfig[$languageCode])) {
+                $alias = '/' . $languageNegotiationConfig[$languageCode] . $alias;
+            }
+
         }
-        return '/'.$languageCode.$alias;
+
+        return $alias;
     }
 
 
