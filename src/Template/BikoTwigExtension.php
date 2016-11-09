@@ -83,6 +83,7 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('image_style_url', array($this, 'getImageStyleUrl')),
             new \Twig_SimpleFunction('get_class', array($this, 'getClass')),
             new \Twig_SimpleFunction('reflection_export', array($this, 'reflectionExport')),
+            new \Twig_SimpleFunction('xdebug', array($this, 'xdebug')),
             new \Twig_SimpleFunction('drupal_format_size', 'format_size'),
         );
     }
@@ -361,6 +362,21 @@ class BikoTwigExtension extends TwigExtension
     public function reflectionExport($object)
     {
         return '<pre>'.ReflectionObject::export($object, true).'<pre>';
+    }
+
+
+    /**
+     * Método dummy para poder usar xdebug desde Twig
+     *
+     * @example {{ xdebug(view.result[0]) }}
+     *
+     * @param object $object
+     *
+     * @return object
+     */
+    public function xdebug($object)
+    {
+        return $object;
     }
 
 
