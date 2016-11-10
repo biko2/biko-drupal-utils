@@ -372,11 +372,12 @@ class BikoTwigExtension extends TwigExtension
      *
      * @param object $object
      *
-     * @return object
+     * @return string
      */
     public function xdebug($object)
     {
-        return $object;
+        $dummy = $object;
+        return '';
     }
 
 
