@@ -65,9 +65,9 @@ class BikoTwigExtension extends TwigExtension
      * @return array
      *   A key/value array that defines custom Twig functions. The key denotes the
      *   function name used in the tag, e.g.:
-     *   @code
+     * @code
      *   {{ testfunc() }}
-     *   @endcode
+     * @endcode
      *
      *   The value is a standard PHP callback that defines what the function does.
      */
@@ -85,6 +85,7 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('reflection_export', array($this, 'reflectionExport')),
             new \Twig_SimpleFunction('xdebug', array($this, 'xdebug')),
             new \Twig_SimpleFunction('drupal_format_size', 'format_size'),
+            new \Twig_SimpleFunction('drupal_sanitize', array($this, 'clean_text')),
         );
     }
 
@@ -364,9 +365,30 @@ class BikoTwigExtension extends TwigExtension
         return '<pre>'.ReflectionObject::export($object, true).'<pre>';
     }
 
+    /**
+     * Renderiza un link a partir de un objeto url, usando una plantilla inline
+     *
+     * @example {{ link_html('span>'~item.title~'</span>', item.url, { 'class':['foo', 'bar', 'baz']} ) }}
+     *
+     * @param string $inline_template
+     *   Plantilla inline que estará dentro del link renderizado.
+     * @param \Drupal\Core\Url|string $url
+     *   El objeto URL usado para el link.
+     * @param array|\Drupal\Core\Template\Attribute $attributes
+     *   Un array opcional o un objeto Attribute con los atributos para el link.
+     *
+     * @return array
+     *   Array de renderizado representando un link html con la URL dada.
+     */
+    public function clean_text($string)
+    {
+        return \Drupal::service('pathauto.alias_cleaner')->cleanString($string);
+    }
+
 
     /**
-     * Método dummy para poder usar xdebug desde Twig
+     * Método dummy para poder usar xdebug desde Twig,
+     * añadiendo un breakpoint en la línea $dummy
      *
      * @example {{ xdebug(view.result[0]) }}
      *
