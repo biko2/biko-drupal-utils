@@ -24,8 +24,10 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Template\TwigExtension;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
-use Drupal\file\Entity\File;
 use ReflectionObject;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Routing\UrlGeneratorInterface;
+use Drupal\Core\Theme\ThemeManagerInterface;
 
 class BikoTwigExtension extends TwigExtension
 {
@@ -42,9 +44,9 @@ class BikoTwigExtension extends TwigExtension
      * @param \Drupal\Core\Render\RendererInterface $renderer
      *   The renderer.
      */
-    public function __construct(RendererInterface $renderer)
+    public function __construct(RendererInterface $renderer, UrlGeneratorInterface $url_generator, ThemeManagerInterface $theme_manager, DateFormatterInterface $date_formatter)
     {
-        parent::__construct($renderer);
+        parent::__construct($renderer, $url_generator, $theme_manager, $date_formatter);
         $this->renderer = $renderer;
     }
 
