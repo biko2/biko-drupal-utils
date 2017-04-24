@@ -7,7 +7,7 @@ services:
     class: Drupal\biko_drupal_utils\Render\BikoRenderService
   biko.twig_extension:
     class: Drupal\biko_drupal_utils\Template\BikoTwigExtension
-    arguments: ['@renderer']
+    arguments: ['@renderer', '@url_generator', '@theme.manager', '@date.formatter']
     # Los 'tags' se usan para indicar que este servicio debe usarse de manera
     # especial o que pertenece a una categoria (grupo) de servicios
     # https://www.drupal.org/node/2239393
