@@ -44,10 +44,9 @@ class BikoTwigExtension extends TwigExtension
      * @param \Drupal\Core\Render\RendererInterface $renderer
      *   The renderer.
      */
-    public function __construct(RendererInterface $renderer, UrlGeneratorInterface $url_generator, ThemeManagerInterface $theme_manager, DateFormatterInterface $date_formatter)
+    public function __construct(RendererInterface $renderer)
     {
-        parent::__construct($renderer, $url_generator, $theme_manager, $date_formatter);
-        $this->renderer = $renderer;
+        parent::__construct($renderer);
     }
 
     /**
@@ -88,6 +87,8 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('xdebug', array($this, 'xdebug')),
             new \Twig_SimpleFunction('drupal_format_size', 'format_size'),
             new \Twig_SimpleFunction('drupal_sanitize', array($this, 'clean_text')),
+            new \Twig_SimpleFunction('file_get_contents', 'file_get_contents'),
+            new \Twig_SimpleFunction('embed_base64', array($this, 'embed_base64')),
         );
     }
 
@@ -390,7 +391,7 @@ class BikoTwigExtension extends TwigExtension
 
     /**
      * Método dummy para poder usar xdebug desde Twig,
-     * añadiendo un breakpoint en la línea $dummy
+     * añadiendo un breakpoint en la línea "$dummy = object"
      *
      * @example {{ xdebug(view.result[0]) }}
      *
@@ -404,5 +405,26 @@ class BikoTwigExtension extends TwigExtension
         return '';
     }
 
+  /**
+   * Obtiene el contenido de un fichero, codificado en base64,
+   * y con las cabeceras correspondientes según el mime type del fichero
+   *
+   * @example <img src="{{ base64_embed('imagen.jpg') }}"/>
+   *
+   * @param string $path
+   *
+   * @return string
+   */
+  public function embed_base64($path)
+  {
+    $path = DRUPAL_ROOT.'/'.$path;
+
+    if (is_file($path)) {
+      $mime = mime_content_type($path);
+      $base64Data = base64_encode(file_get_contents($path));
+      return 'data:'.$mime.';base64,'.$base64Data;
+    }
+    return '';
+  }
 
 }
