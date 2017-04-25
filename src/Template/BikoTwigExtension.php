@@ -418,9 +418,10 @@ class BikoTwigExtension extends TwigExtension
   public function embed_base64($path)
   {
     $path = DRUPAL_ROOT.'/'.$path;
+    $extension = pathinfo($path, PATHINFO_EXTENSION);
 
     if (is_file($path)) {
-      $mime = mime_content_type($path);
+      $mime = ($extension == 'svg') ? 'image/svg+xml' : mime_content_type($path);
       $base64Data = base64_encode(file_get_contents($path));
       return 'data:'.$mime.';base64,'.$base64Data;
     }
