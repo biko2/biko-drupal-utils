@@ -23,6 +23,18 @@ class BikoEntityService
     }
 
     /**
+     * Obtiene el renderizado de un término
+     *
+     * @param Drupal\taxonomy\Entity\Term $node
+     * @param string $viewMode
+     * @return String
+     */
+    public function getTermRendering(Drupal\taxonomy\Entity\Term $term, $viewMode = 'full')
+    {
+        return $this->getEntityRendering($term, $viewMode);
+    }
+
+    /**
      * Obtiene el renderizado de un block
      *
      * @param \Drupal\block\Entity\Block $block
@@ -33,7 +45,7 @@ class BikoEntityService
         return $this->getEntityRendering($block, null);
     }
 
-    
+
 
     /**
      * Obtiene el render array de un node

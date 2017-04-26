@@ -26,6 +26,7 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use ReflectionObject;
+use Drupal\taxonomy\Entity\Term;
 
 class BikoTwigExtension extends TwigExtension
 {
@@ -78,6 +79,7 @@ class BikoTwigExtension extends TwigExtension
             new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
             new \Twig_SimpleFunction('path_alias', array($this, 'pathAlias')),
             new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
+            new \Twig_SimpleFunction('render_term', array($this, 'renderTerm')),
             new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
             new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
             new \Twig_SimpleFunction('image_style_url', array($this, 'getImageStyleUrl')),
@@ -181,8 +183,6 @@ class BikoTwigExtension extends TwigExtension
      */
     public function addToArray($array, $keys, $arrayToAdd)
     {
-
-//       echo '<pre>'.print_r(array_keys($array['field_taxonomy_image'][0]['#item_attributes']),1).'</pre>';exit;
         // Si tenemos keys, seguimos iterando recursivamente
         if (count($keys)) {
             $currentKey = array_shift($keys);
@@ -265,6 +265,29 @@ class BikoTwigExtension extends TwigExtension
 
         // Obtenemos el html del nodo
         return \Drupal::service('biko.entity')->getNodeRendering($nodeEntity, $viewMode);
+    }
+
+    /**
+     * Obtiene el html de cualquier término
+     *
+     * @example {{ render_term(1) }}
+     *
+     * @param integer $termId
+     *  Id del término
+     *
+     * @param string $viewMode
+     *  ViewMode (por defecto será full)
+     *
+     * @return string
+     *
+     */
+    public function renderTerm($termId, $viewMode = 'full')
+    {
+        // Obtenemos la entidad del término
+        $termEntity = Term::load($termId);
+
+        // Obtenemos el html del nodo
+        return \Drupal::service('biko.entity')->getTermRendering($termEntity, $viewMode);
     }
 
     /**
