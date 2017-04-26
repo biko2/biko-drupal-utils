@@ -4,9 +4,12 @@
   "type": "drupal-module",
   "homepage": "http://www.biko2.com",
   "minimum-stability": "dev",
-   "extra": {
-        "branch-alias": {
-            "dev-master": "8.1.x-dev"
-        }
+  "extra": {
+    "branch-alias": {
+      "dev-master": "8.1.x-dev"
     }
+  },
+  "require": {
+    "nochso/html-compress-twig": "^2.0"
+  }
 }
