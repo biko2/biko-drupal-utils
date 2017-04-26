@@ -288,7 +288,7 @@ class BikoTwigExtension extends TwigExtension
   public function renderTerm($termId, $viewMode = 'full')
   {
     // Obtenemos la entidad del nodo
-    $termEntity = Drupal\taxonomy\Entity\Term::load($termId);
+    $termEntity = \Drupal\taxonomy\Entity\Term::load($termId);
 
     // Obtenemos el html del nodo
     return \Drupal::service('biko.entity')->getTermRendering($termEntity, $viewMode);
