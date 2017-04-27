@@ -81,6 +81,7 @@ class BikoTwigExtension extends TwigExtension
       new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
       new \Twig_SimpleFunction('render_term', array($this, 'renderTerm')),
       new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
+      new \Twig_SimpleFunction('render_view', 'views_embed_view'),
       new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
       new \Twig_SimpleFunction('image_style_url', array($this, 'getImageStyleUrl')),
       new \Twig_SimpleFunction('get_class', array($this, 'getClass')),
