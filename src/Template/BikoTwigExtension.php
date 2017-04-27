@@ -89,7 +89,6 @@ class BikoTwigExtension extends TwigExtension
       new \Twig_SimpleFunction('xdebug', array($this, 'xdebug')),
       new \Twig_SimpleFunction('drupal_format_size', 'format_size'),
       new \Twig_SimpleFunction('drupal_sanitize', array($this, 'clean_text')),
-      new \Twig_SimpleFunction('file_get_contents', 'file_get_contents'),
       new \Twig_SimpleFunction('embed_base64', array($this, 'embed_base64')),
     );
   }
