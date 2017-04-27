@@ -87,7 +87,7 @@ class BikoTwigExtension extends TwigExtension
       new \Twig_SimpleFunction('xdebug', array($this, 'xdebug')),
       new \Twig_SimpleFunction('drupal_format_size', 'format_size'),
       new \Twig_SimpleFunction('drupal_sanitize', array($this, 'clean_text')),
-      new \Twig_SimpleFunction('file_get_contents', 'file_get_contents'),
+      new \Twig_SimpleFunction('file_get_contents', array($this, 'file_get_contents')),
       new \Twig_SimpleFunction('embed_base64', array($this, 'embed_base64')),
     );
   }
@@ -402,6 +402,25 @@ class BikoTwigExtension extends TwigExtension
   public function xdebug($object)
   {
     $dummy = $object;
+    return '';
+  }
+
+  /**
+   * Obtiene el contenido de un fichero
+   *
+   * @example {{ file_get_contents('imagen.jpg') }}"/>
+   *
+   * @param string $path
+   *
+   * @return string
+   */
+  public function file_get_contents($path)
+  {
+    $path = DRUPAL_ROOT.'/'.$path;
+
+    if (is_file($path)) {
+      return file_get_contents($path);
+    }
     return '';
   }
 
