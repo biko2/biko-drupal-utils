@@ -79,6 +79,7 @@ class BikoTwigExtension extends TwigExtension
       new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
       new \Twig_SimpleFunction('path_alias', array($this, 'pathAlias')),
       new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
+      new \Twig_SimpleFunction('render_term', array($this, 'renderTerm')),
       new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
       new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
       new \Twig_SimpleFunction('image_style_url', array($this, 'getImageStyleUrl')),
@@ -268,6 +269,29 @@ class BikoTwigExtension extends TwigExtension
 
     // Obtenemos el html del nodo
     return \Drupal::service('biko.entity')->getNodeRendering($nodeEntity, $viewMode);
+  }
+
+  /**
+   * Obtiene el html de cualquier term
+   *
+   * @example {{ render_term(1) }}
+   *
+   * @param integer $termId
+   *  Id del term
+   *
+   * @param string $viewMode
+   *  ViewMode (por defecto será null)
+   *
+   * @return string
+   *
+   */
+  public function renderTerm($termId, $viewMode = 'full')
+  {
+    // Obtenemos la entidad del nodo
+    $termEntity = \Drupal\taxonomy\Entity\Term::load($termId);
+
+    // Obtenemos el html del nodo
+    return \Drupal::service('biko.entity')->getTermRendering($termEntity, $viewMode);
   }
 
   /**
