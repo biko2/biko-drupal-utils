@@ -30,7 +30,7 @@ use Drupal\Core\Theme\ThemeManagerInterface;
 
 class BikoTwigExtension extends TwigExtension
 {
-  /**
+    /**
    * The renderer.
    *
    * @var \Drupal\Core\Render\RendererInterface
@@ -45,8 +45,8 @@ class BikoTwigExtension extends TwigExtension
    */
   public function __construct(RendererInterface $renderer, UrlGeneratorInterface $url_generator, ThemeManagerInterface $theme_manager, DateFormatterInterface $date_formatter)
   {
-    parent::__construct($renderer, $url_generator, $theme_manager, $date_formatter);
-    $this->renderer = $renderer;
+      parent::__construct($renderer, $url_generator, $theme_manager, $date_formatter);
+      $this->renderer = $renderer;
   }
 
   /**
@@ -57,7 +57,7 @@ class BikoTwigExtension extends TwigExtension
    */
   public function getName()
   {
-    return 'biko_twig_extension';
+      return 'biko_twig_extension';
   }
 
   /**
@@ -74,13 +74,14 @@ class BikoTwigExtension extends TwigExtension
    */
   public function getFunctions()
   {
-    return array(
+      return array(
       new \Twig_SimpleFunction('link_html', array($this, 'linkHtml')),
       new \Twig_SimpleFunction('add_to_array', array($this, 'addToArray')),
       new \Twig_SimpleFunction('path_alias', array($this, 'pathAlias')),
       new \Twig_SimpleFunction('render_node', array($this, 'renderNode')),
       new \Twig_SimpleFunction('render_term', array($this, 'renderTerm')),
       new \Twig_SimpleFunction('render_block', array($this, 'renderBlock')),
+      new \Twig_SimpleFunction('render_block_content', array($this, 'renderBlockContent')),
       new \Twig_SimpleFunction('render_view', 'views_embed_view'),
       new \Twig_SimpleFunction('render_contact_form', array($this, 'renderContactForm')),
       new \Twig_SimpleFunction('image_style_url', array($this, 'getImageStyleUrl')),
@@ -138,21 +139,21 @@ class BikoTwigExtension extends TwigExtension
    */
   public function linkHtml($inline_template, $url, $attributes = [])
   {
-    if (!$url instanceof Url) {
-      $url = Url::fromUri($url);
-    }
-
-    if ($attributes) {
-      if ($attributes instanceof Attribute) {
-        $attributes = $attributes->toArray();
+      if (!$url instanceof Url) {
+          $url = Url::fromUri($url);
       }
-      if ($existing_attributes = $url->getOption('attributes')) {
-        $attributes = array_merge($existing_attributes, $attributes);
-      }
-      $url->setOption('attributes', $attributes);
-    }
 
-    $build = [
+      if ($attributes) {
+          if ($attributes instanceof Attribute) {
+              $attributes = $attributes->toArray();
+          }
+          if ($existing_attributes = $url->getOption('attributes')) {
+              $attributes = array_merge($existing_attributes, $attributes);
+          }
+          $url->setOption('attributes', $attributes);
+      }
+
+      $build = [
       '#type' => 'link',
       '#title' => [
         '#type' => 'inline_template',
@@ -161,7 +162,7 @@ class BikoTwigExtension extends TwigExtension
       '#url' => $url,
     ];
 
-    return $build;
+      return $build;
   }
 
 
@@ -189,23 +190,22 @@ class BikoTwigExtension extends TwigExtension
 //       echo '<pre>'.print_r(array_keys($array['field_taxonomy_image'][0]['#item_attributes']),1).'</pre>';exit;
     // Si tenemos keys, seguimos iterando recursivamente
     if (count($keys)) {
-      $currentKey = array_shift($keys);
-      if (!isset($array[$currentKey])) {
-        $array[$currentKey] = array();
-      }
-      $array[$currentKey] = $this->addToArray($array[$currentKey], $keys, $arrayToAdd);
+        $currentKey = array_shift($keys);
+        if (!isset($array[$currentKey])) {
+            $array[$currentKey] = array();
+        }
+        $array[$currentKey] = $this->addToArray($array[$currentKey], $keys, $arrayToAdd);
     }
     // Si ya no quedan keys, es que hemos llegado a la profundidad deseada
     else {
-      if (is_array($arrayToAdd)) {
-        $array = array_merge($array, $arrayToAdd);
-      }
-      else {
-        $array = $arrayToAdd;
-      }
+        if (is_array($arrayToAdd)) {
+            $array = array_merge($array, $arrayToAdd);
+        } else {
+            $array = $arrayToAdd;
+        }
     }
 
-    return $array;
+      return $array;
   }
 
 
@@ -224,27 +224,25 @@ class BikoTwigExtension extends TwigExtension
    */
   public function pathAlias($path, $languageCode)
   {
-    $alias = '';
+      $alias = '';
 
-    if (substr($path, 0, 1) == '/') {
-
-      $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path, $languageCode);
+      if (substr($path, 0, 1) == '/') {
+          $alias = \Drupal::service('path.alias_manager')->getAliasByPath($path, $languageCode);
       // Si el alias no devuelve nada, como en las portadas,
       // que produce urls como "/es/node/", lo dejamos vacio para que apunte a "/es"
       if ($alias == '/node/') {
-        $alias = null;
+          $alias = null;
       }
 
       // Obtenemos la config de autodetención de idioma para ver qué código de idioma hay que poner
       $languageNegotiationConfig = \Drupal::config('language.negotiation')->get('url')['prefixes'];
 
-      if (!empty($languageNegotiationConfig[$languageCode])) {
-        $alias = '/' . $languageNegotiationConfig[$languageCode] . $alias;
+          if (!empty($languageNegotiationConfig[$languageCode])) {
+              $alias = '/' . $languageNegotiationConfig[$languageCode] . $alias;
+          }
       }
 
-    }
-
-    return $alias;
+      return $alias;
   }
 
 
@@ -264,7 +262,7 @@ class BikoTwigExtension extends TwigExtension
    */
   public function renderNode($nodeId, $viewMode = 'full')
   {
-    // Obtenemos la entidad del nodo
+      // Obtenemos la entidad del nodo
     $nodeEntity = \Drupal\node\Entity\Node::load($nodeId);
 
     // Obtenemos el html del nodo
@@ -287,7 +285,7 @@ class BikoTwigExtension extends TwigExtension
    */
   public function renderTerm($termId, $viewMode = 'full')
   {
-    // Obtenemos la entidad del nodo
+      // Obtenemos la entidad del nodo
     $termEntity = \Drupal\taxonomy\Entity\Term::load($termId);
 
     // Obtenemos el html del nodo
@@ -307,11 +305,39 @@ class BikoTwigExtension extends TwigExtension
    */
   public function renderBlock($blockId)
   {
-    // Obtenemos la entidad del bloque
+      // Obtenemos la entidad del bloque
     $blockEntity = \Drupal\block\Entity\Block::load($blockId);
-
-    // Obtenemos el html del bloque
+      if ($blockEntity) {
+          // Obtenemos el html del bloque
     return \Drupal::service('biko.entity')->getBlockRendering($blockEntity);
+      } else {
+          echo "no existe el block: " . $blockId;
+      }
+  }
+
+  /**
+   * Obtiene el html de cualquier bloque personalizado
+   *
+   * @example {{ render_block_content('views_block__product_category_taxomony_menu_block_mobile') }}
+   *
+   * @param integer $blockId
+   *  Id del bloque
+   *
+   * @return string
+   *
+   */
+  public function renderBlockContent($blockId)
+  {
+      // Obtenemos la entidad del bloque
+    $blockEntity = \Drupal\block_content\Entity\BlockContent::load($blockId);
+      if ($blockEntity) {
+          $blockOriginal = \Drupal::entityTypeManager()->getStorage('block')->loadByProperties(array('plugin' => 'block_content:' . $blockEntity->uuid()));
+          $blockOriginal = array_keys($blockOriginal);
+          $blockKey = reset($blockOriginal);
+          return $this->renderBlock($blockKey);
+      } else {
+          echo "no existe el block: " . $blockId;
+      }
   }
 
   /**
@@ -327,10 +353,10 @@ class BikoTwigExtension extends TwigExtension
    */
   public function renderContactForm($formId)
   {
-    // Obtenemos la entidad del form
+      // Obtenemos la entidad del form
     $formEntity = \Drupal\contact\Entity\ContactForm::load($formId);
-    if (!empty($formEntity)) {
-      $message = \Drupal::entityTypeManager()
+      if (!empty($formEntity)) {
+          $message = \Drupal::entityTypeManager()
         ->getStorage('contact_message')
         ->create(array(
           'contact_form' => $formId,
@@ -341,8 +367,8 @@ class BikoTwigExtension extends TwigExtension
       //$form['#title'] = \Drupal\Component\Utility\SafeMarkup::checkPlain($formEntity->label());
       // Obtenemos el html del bloque
       return $form;
-    }
-    return null;
+      }
+      return null;
   }
 
   /**
@@ -360,7 +386,7 @@ class BikoTwigExtension extends TwigExtension
 
   public function getImageStyleUrl($fileId, $imageStyle)
   {
-    return \Drupal::service('biko.render')->getImageStyleUrl($fileId, $imageStyle);
+      return \Drupal::service('biko.render')->getImageStyleUrl($fileId, $imageStyle);
   }
 
   /**
@@ -374,7 +400,7 @@ class BikoTwigExtension extends TwigExtension
    */
   public function getClass($object)
   {
-    return get_class($object);
+      return get_class($object);
   }
 
 
@@ -389,7 +415,7 @@ class BikoTwigExtension extends TwigExtension
    */
   public function reflectionExport($object)
   {
-    return '<pre>'.ReflectionObject::export($object, true).'<pre>';
+      return '<pre>'.ReflectionObject::export($object, true).'<pre>';
   }
 
   /**
@@ -409,7 +435,7 @@ class BikoTwigExtension extends TwigExtension
    */
   public function clean_text($string)
   {
-    return \Drupal::service('pathauto.alias_cleaner')->cleanString($string);
+      return \Drupal::service('pathauto.alias_cleaner')->cleanString($string);
   }
 
 
@@ -425,8 +451,8 @@ class BikoTwigExtension extends TwigExtension
    */
   public function xdebug($object)
   {
-    $dummy = $object;
-    return '';
+      $dummy = $object;
+      return '';
   }
 
   /**
@@ -441,15 +467,14 @@ class BikoTwigExtension extends TwigExtension
    */
   public function embed_base64($path)
   {
-    $path = DRUPAL_ROOT.'/'.$path;
-    $extension = pathinfo($path, PATHINFO_EXTENSION);
+      $path = DRUPAL_ROOT.'/'.$path;
+      $extension = pathinfo($path, PATHINFO_EXTENSION);
 
-    if (is_file($path)) {
-      $mime = ($extension == 'svg') ? 'image/svg+xml' : mime_content_type($path);
-      $base64Data = base64_encode(file_get_contents($path));
-      return 'data:'.$mime.';base64,'.$base64Data;
-    }
-    return '';
+      if (is_file($path)) {
+          $mime = ($extension == 'svg') ? 'image/svg+xml' : mime_content_type($path);
+          $base64Data = base64_encode(file_get_contents($path));
+          return 'data:'.$mime.';base64,'.$base64Data;
+      }
+      return '';
   }
-
 }

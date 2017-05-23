@@ -45,8 +45,6 @@ class BikoEntityService
         return $this->getEntityRendering($block, null);
     }
 
-
-
     /**
      * Obtiene el render array de un node
      *
