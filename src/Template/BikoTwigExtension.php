@@ -92,6 +92,7 @@ class BikoTwigExtension extends TwigExtension
       new \Twig_SimpleFunction('drupal_format_size', 'format_size'),
       new \Twig_SimpleFunction('drupal_sanitize', array($this, 'clean_text')),
       new \Twig_SimpleFunction('embed_base64', array($this, 'embed_base64')),
+      new \Twig_SimpleFunction('del_comments', array($this, 'remove_html_comments')),
     );
   }
 
@@ -496,5 +497,19 @@ class BikoTwigExtension extends TwigExtension
           return 'data:'.$mime.';base64,'.$base64Data;
       }
       return '';
+  }
+
+  /**
+   * Elimina los comentarios de un html
+   *
+   * @example del_comments
+   *
+   * @param string $content
+   *
+   * @return string
+   */
+  public function remove_html_comments($content = '')
+  {
+      return trim(preg_replace('/<!--(.|\s)*?-->/', '', $content));
   }
 }
