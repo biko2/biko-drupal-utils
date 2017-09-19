@@ -65,7 +65,7 @@ class BikoRenderService
         $file = File::load($fileId);
         if ($file) {
             $style = ImageStyle::load($imageStyle);
-            return $style->buildUrl($file->getFileUri());
+            return ($style) ? $style->buildUrl($file->getFileUri()) : null;
         }
         return null;
     }
