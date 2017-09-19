@@ -440,23 +440,15 @@ class BikoTwigExtension extends TwigExtension
   }
 
   /**
-   * Renderiza un link a partir de un objeto url, usando una plantilla inline
-   *
-   * @example {{ link_html('span>'~item.title~'</span>', item.url, { 'class':['foo', 'bar', 'baz']} ) }}
-   *
-   * @param string $inline_template
-   *   Plantilla inline que estará dentro del link renderizado.
-   * @param \Drupal\Core\Url|string $url
-   *   El objeto URL usado para el link.
-   * @param array|\Drupal\Core\Template\Attribute $attributes
-   *   Un array opcional o un objeto Attribute con los atributos para el link.
-   *
-   * @return array
-   *   Array de renderizado representando un link html con la URL dada.
+   * Limpia una cadena para poder usarla como class, id, etc
    */
   public function clean_text($string)
   {
+    if (is_string($string)) {
       return \Drupal::service('pathauto.alias_cleaner')->cleanString($string);
+    } else {
+      return "";
+    }
   }
 
 
